@@ -259,8 +259,11 @@ fi
 if ! "$SKIP_GC"; then
     echo
     cyan "Cleaning unnecessary files & optimizing your local repo..."
-    git gc || true
-    green "Complete!"
+    if git gc; then
+        green "Cleanup complete!"
+    else
+        yellow "WARNING: Cleanup attempted, but 'git gc' failed."
+    fi
 fi
 
 if ! "$SKIP_UPDATE_CHECK"; then
